@@ -9,14 +9,20 @@
   <meta property="og:description" content="Приватные игровые комнаты на двоих. Одна ссылка — и вы в игре.">
   <meta property="og:type" content="website">
   <title>Duelink — браузерные дуэли</title>
+  <link rel="icon" type="image/svg+xml" href="/duelink-avatar.svg">
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/extra.css">
   <link rel="stylesheet" href="/portfolio.css">
+  <link rel="stylesheet" href="/nextgen.css">
 </head>
 <body>
   <div class="bg-orb orb-1"></div><div class="bg-orb orb-2"></div><div class="bg-grid"></div>
+
   <header class="topbar">
-    <button class="brand" id="brandBtn" type="button" aria-label="На главную"><span class="brand-mark">D</span><span class="brand-copy"><strong>DUELINK</strong><small>multiplayer game rooms</small></span></button>
+    <button class="brand" id="brandBtn" type="button" aria-label="На главную">
+      <span class="brand-mark brand-mark-image"><img src="/duelink-avatar.svg" alt="Duelink logo"></span>
+      <span class="brand-copy"><strong>DUELINK</strong><small>multiplayer game rooms</small><span class="brand-author">created by Snowik</span></span>
+    </button>
     <div class="topbar-right">
       <button id="soundToggle" class="sound-toggle" type="button" aria-pressed="true" title="Включить или выключить звуки"><span id="soundIcon">🔊</span><span class="sound-label">Звук</span></button>
       <div class="connection-pill"><span id="connectionDot" class="dot"></span><span id="connectionText">Подключение...</span></div>
@@ -32,12 +38,23 @@
           <p>Мини-игры на двоих прямо в браузере. Создай приватную комнату, кинь ссылку другу и начинай дуэль без установок и аккаунтов.</p>
           <div class="hero-badges"><span>⚡ Real-time</span><span>🔗 Share link</span><span>📱 Mobile friendly</span></div>
         </div>
-        <div class="hero-preview"><div class="preview-window"><div class="preview-top"><span></span><span></span><span></span></div><div class="preview-content"><div class="preview-room">ROOM A7K9P2</div><div class="preview-versus"><div class="preview-player"><b>Bookds</b><small>Игрок 1</small></div><div class="preview-vs">VS</div><div class="preview-player"><b>PixelCat42</b><small>Игрок 2</small></div></div><div class="preview-board"><span class="x">×</span><span></span><span class="o">○</span><span></span><span class="x">×</span><span></span><span></span><span></span><span class="o">○</span></div></div></div></div>
+        <div class="hero-preview">
+          <div class="preview-window">
+            <div class="preview-top"><span></span><span></span><span></span></div>
+            <div class="preview-content">
+              <div class="preview-room">ROOM A7K9P2</div>
+              <div class="preview-versus">
+                <div class="preview-player"><b>NovaFox</b><small>Игрок 1</small></div><div class="preview-vs">VS</div><div class="preview-player"><b>PixelCat42</b><small>Игрок 2</small></div>
+              </div>
+              <div class="preview-board"><span class="x">×</span><span></span><span class="o">○</span><span></span><span class="x">×</span><span></span><span></span><span></span><span class="o">○</span></div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="home-grid">
         <div class="catalog-card">
-          <div class="section-head"><div><div class="eyebrow">каталог игр</div><h2>Выбери игру</h2></div><p>Карточка сразу создаёт приватную комнату.</p></div>
+          <div class="section-head"><div><div class="eyebrow">каталог игр</div><h2>Выбери игру</h2></div><p>Карточка создаёт приватную комнату. Дальше игру можно менять внутри одного лобби.</p></div>
           <div class="games" aria-label="Выбор игры">
             <button class="game-card" data-game="tictactoe" type="button"><span class="game-card-top"></span><span class="game-icon">✕○</span><span class="game-copy"><b>Крестики-нолики</b><small>Классика · 3×3</small></span><span class="game-action">Создать комнату</span></button>
             <button class="game-card" data-game="connect4" type="button"><span class="game-card-top"></span><span class="game-icon">●●</span><span class="game-copy"><b>Четыре в ряд</b><small>Тактика · поле 7×6</small></span><span class="game-action">Создать комнату</span></button>
@@ -49,8 +66,20 @@
         </div>
 
         <aside class="side-stack">
-          <div class="panel utility-card"><div class="section-head compact-head"><div><div class="eyebrow">твоя сессия</div><h3>Настройся перед матчем</h3></div></div><label class="field-label" for="nameInput">Твой ник</label><div class="name-row"><input id="nameInput" maxlength="20" autocomplete="nickname" placeholder="Например, Bookds"><button id="randomNameBtn" class="ghost-btn icon-btn" type="button" title="Случайный ник">↻</button></div><div class="mini-feature-list"><div class="mini-feature"><strong>Приватные комнаты</strong><small>Доступ только по ссылке или коду.</small></div><div class="mini-feature"><strong>Без регистрации</strong><small>Никаких аккаунтов и почт.</small></div><div class="mini-feature"><strong>Переподключение</strong><small>Обновил страницу — вернулся в матч.</small></div></div></div>
-          <div class="panel utility-card"><div class="section-head compact-head"><div><div class="eyebrow">быстрый вход</div><h3>Уже есть комната?</h3></div><p>Введи шестизначный код.</p></div><form id="joinForm" class="join-form"><input id="roomCodeInput" maxlength="6" placeholder="A7K9P2" autocomplete="off"><button class="primary-btn wide-btn" type="submit">Войти в комнату</button></form></div>
+          <div class="panel utility-card">
+            <div class="section-head compact-head"><div><div class="eyebrow">твоя сессия</div><h3>Настройся перед матчем</h3></div></div>
+            <label class="field-label" for="nameInput">Твой ник</label>
+            <div class="name-row"><input id="nameInput" maxlength="20" autocomplete="nickname" placeholder="Например, NovaFox"><button id="randomNameBtn" class="ghost-btn icon-btn" type="button" title="Случайный ник">↻</button></div>
+            <div class="mini-feature-list">
+              <div class="mini-feature"><strong>Приватные комнаты</strong><small>Доступ только по ссылке или коду.</small></div>
+              <div class="mini-feature"><strong>Без регистрации</strong><small>Никаких аккаунтов и почт.</small></div>
+              <div class="mini-feature"><strong>Одна ссылка</strong><small>Меняйте игры внутри лобби без переподключения.</small></div>
+            </div>
+          </div>
+          <div class="panel utility-card">
+            <div class="section-head compact-head"><div><div class="eyebrow">быстрый вход</div><h3>Уже есть комната?</h3></div><p>Введи шестизначный код.</p></div>
+            <form id="joinForm" class="join-form"><input id="roomCodeInput" maxlength="6" placeholder="A7K9P2" autocomplete="off"><button class="primary-btn wide-btn" type="submit">Войти в комнату</button></form>
+          </div>
         </aside>
       </section>
     </section>
@@ -62,13 +91,22 @@
             <div class="room-sidebar-top"><button id="backBtn" class="ghost-btn icon-btn back-btn" type="button" aria-label="Назад">←</button><div><div class="eyebrow" id="gameName">комната</div><h2 id="roomTitle">Комната</h2></div></div>
             <div class="room-code-block"><span>Код комнаты</span><strong id="roomCodeBadge">------</strong></div>
             <button id="copyBtn" class="primary-btn wide-btn" type="button">Копировать ссылку</button>
-            <div class="meta-grid"><div class="meta-box"><small>Статус</small><b id="roomStatusHint">Подключение…</b></div><div class="meta-box"><small>Раунд</small><b id="roundLabel">—</b></div><div class="meta-box"><small>Игроков</small><b id="playersCount">0/2</b></div><div class="meta-box"><small>Тип матча</small><b id="gameShortName">—</b></div></div>
+            <div class="meta-grid">
+              <div class="meta-box"><small>Статус</small><b id="roomStatusHint">Подключение…</b></div>
+              <div class="meta-box"><small>Раунд</small><b id="roundLabel">—</b></div>
+              <div class="meta-box"><small>Игроков</small><b id="playersCount">0/2</b></div>
+              <div class="meta-box"><small>Текущая игра</small><b id="gameShortName">—</b></div>
+            </div>
           </div>
-          <div class="panel share-card"><div class="section-head compact-head"><div><div class="eyebrow">поделиться</div><h3>Ссылка-приглашение</h3></div></div><div class="invite-box"><code id="inviteUrl"></code><button id="copyInlineBtn" type="button">Копировать</button></div><p class="share-note">Скинь другу ссылку или код. Когда второй игрок зайдёт, матч начнётся автоматически.</p></div>
+          <div class="panel share-card">
+            <div class="section-head compact-head"><div><div class="eyebrow">поделиться</div><h3>Ссылка-приглашение</h3></div></div>
+            <div class="invite-box"><code id="inviteUrl"></code><button id="copyInlineBtn" type="button">Копировать</button></div>
+            <p class="share-note">Ссылка живёт вместе с комнатой. После смены игры отправлять новую не нужно.</p>
+          </div>
         </aside>
 
         <div class="room-main">
-          <div id="joinRoomPanel" class="panel room-state-panel hidden"><div class="state-icon">🎮</div><h3>Войти в комнату</h3><p>Введи ник и подключайся к приватному матчу.</p><form id="joinRoomForm" class="room-join-form"><input id="joinNameInput" maxlength="20" placeholder="Твой ник" autocomplete="nickname"><button class="primary-btn wide-btn" type="submit">Подключиться</button></form></div>
+          <div id="joinRoomPanel" class="panel room-state-panel hidden"><div class="state-icon">🎮</div><h3>Войти в комнату</h3><p>Введи ник и подключайся к приватному лобби.</p><form id="joinRoomForm" class="room-join-form"><input id="joinNameInput" maxlength="20" placeholder="Твой ник" autocomplete="nickname"><button class="primary-btn wide-btn" type="submit">Подключиться</button></form></div>
           <div id="waitingPanel" class="panel room-state-panel hidden"><div class="loader"></div><h3>Ожидаем соперника</h3><p>Комната готова. Отправь приглашение другу и жди подключения.</p></div>
           <div id="gamePanel" class="hidden"><div class="game-shell">
             <div class="versus-card"><div class="player" id="player0"></div><div class="versus-center">VS</div><div class="player" id="player1"></div></div>
@@ -86,5 +124,6 @@
   <script src="/app.js"></script>
   <script src="/extra.js"></script>
   <script src="/portfolio.js"></script>
+  <script src="/nextgen.js"></script>
 </body>
 </html>
