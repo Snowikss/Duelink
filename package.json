@@ -1,12 +1,12 @@
 {
   "name": "duelink",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "Browser multiplayer mini-games with shareable rooms",
-  "main": "server.js",
+  "description": "Browser multiplayer mini-games with persistent two-player rooms",
+  "main": "server-nextgen.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "node server-nextgen.js",
+    "dev": "node --watch server-nextgen.js"
   },
   "engines": {
     "node": ">=18"
