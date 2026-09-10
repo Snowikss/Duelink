@@ -22,6 +22,9 @@
     </button>
 
     <div class="topbar-right">
+      <button id="soundToggle" class="sound-toggle" type="button" aria-pressed="true" title="Включить или выключить звуки">
+        <span id="soundIcon">🔊</span><span class="sound-label">Звук</span>
+      </button>
       <div class="connection-pill">
         <span id="connectionDot" class="dot"></span>
         <span id="connectionText">Подключение...</span>
@@ -35,22 +38,35 @@
         <div class="hero-copy">
           <div class="eyebrow">быстро · красиво · без регистрации</div>
           <h1>Комната за <span>5 секунд</span>.<br>Игра — сразу по ссылке.</h1>
-          <p>Мини-игры на двоих прямо в браузере. Создай приватную комнату, кинь ссылку другу и начинай дуэль без установок, аккаунтов и лишней боли.</p>
+          <p>
+            Мини-игры на двоих прямо в браузере. Создай приватную комнату, кинь ссылку другу
+            и начинай дуэль без установок, аккаунтов и лишней боли.
+          </p>
+
           <div class="hero-badges">
             <span>⚡ Real-time</span>
             <span>🔗 Share link</span>
             <span>📱 Mobile friendly</span>
           </div>
         </div>
+
         <div class="hero-preview">
           <div class="preview-window">
-            <div class="preview-top"><span></span><span></span><span></span></div>
+            <div class="preview-top">
+              <span></span><span></span><span></span>
+            </div>
             <div class="preview-content">
               <div class="preview-room">ROOM A7K9P2</div>
               <div class="preview-versus">
-                <div class="preview-player"><b>Bookds</b><small>Игрок 1</small></div>
+                <div class="preview-player p1">
+                  <b>Bookds</b>
+                  <small>Игрок 1</small>
+                </div>
                 <div class="preview-vs">VS</div>
-                <div class="preview-player"><b>PixelCat42</b><small>Игрок 2</small></div>
+                <div class="preview-player p2">
+                  <b>PixelCat42</b>
+                  <small>Игрок 2</small>
+                </div>
               </div>
               <div class="preview-board">
                 <span class="x">×</span><span></span><span class="o">○</span>
@@ -65,31 +81,120 @@
       <section class="home-grid">
         <div class="catalog-card">
           <div class="section-head">
-            <div><div class="eyebrow">каталог игр</div><h2>Выбери игру</h2></div>
+            <div>
+              <div class="eyebrow">каталог игр</div>
+              <h2>Выбери игру</h2>
+            </div>
             <p>Каждая карточка сразу создаёт комнату для матча.</p>
           </div>
+
           <div class="games" aria-label="Выбор игры">
-            <button class="game-card" data-game="tictactoe" type="button"><span class="game-card-top"></span><span class="game-icon">✕○</span><span class="game-copy"><b>Крестики-нолики</b><small>Классика · 3×3 · моментальный старт</small></span><span class="game-action">Создать комнату</span></button>
-            <button class="game-card" data-game="connect4" type="button"><span class="game-card-top"></span><span class="game-icon">●●</span><span class="game-copy"><b>Четыре в ряд</b><small>Тактика · поле 7×6 · победная серия</small></span><span class="game-action">Создать комнату</span></button>
-            <button class="game-card" data-game="rps" type="button"><span class="game-card-top"></span><span class="game-icon">✊</span><span class="game-copy"><b>Камень · Ножницы · Бумага</b><small>Быстрая дуэль · скрытый выбор</small></span><span class="game-action">Создать комнату</span></button>
-            <button class="game-card" data-game="battleship" type="button"><span class="game-card-top"></span><span class="game-icon">⚓</span><span class="game-copy"><b>Морской бой</b><small>Авторасстановка · выстрелы в реальном времени</small></span><span class="game-action">Создать комнату</span></button>
+            <button class="game-card" data-game="tictactoe" type="button">
+              <span class="game-card-top"></span>
+              <span class="game-icon">✕○</span>
+              <span class="game-copy">
+                <b>Крестики-нолики</b>
+                <small>Классика · 3×3 · моментальный старт</small>
+              </span>
+              <span class="game-action">Создать комнату</span>
+            </button>
+
+            <button class="game-card" data-game="connect4" type="button">
+              <span class="game-card-top"></span>
+              <span class="game-icon">●●</span>
+              <span class="game-copy">
+                <b>Четыре в ряд</b>
+                <small>Тактика · поле 7×6 · победная серия</small>
+              </span>
+              <span class="game-action">Создать комнату</span>
+            </button>
+
+            <button class="game-card" data-game="rps" type="button">
+              <span class="game-card-top"></span>
+              <span class="game-icon">✊</span>
+              <span class="game-copy">
+                <b>Камень · Ножницы · Бумага</b>
+                <small>Быстрая дуэль · скрытый выбор</small>
+              </span>
+              <span class="game-action">Создать комнату</span>
+            </button>
+
+            <button class="game-card" data-game="battleship" type="button">
+              <span class="game-card-top"></span>
+              <span class="game-icon">⚓</span>
+              <span class="game-copy">
+                <b>Морской бой</b>
+                <small>Авторасстановка · выстрелы в реальном времени</small>
+              </span>
+              <span class="game-action">Создать комнату</span>
+            </button>
+
+            <button class="game-card" data-game="dotsboxes" type="button">
+              <span class="game-card-top"></span>
+              <span class="game-icon">▦</span>
+              <span class="game-copy">
+                <b>Точки и квадраты</b>
+                <small>Захватывай клетки · дополнительный ход за квадрат</small>
+              </span>
+              <span class="game-action">Создать комнату</span>
+            </button>
+
+            <button class="game-card" data-game="bullscows" type="button">
+              <span class="game-card-top"></span>
+              <span class="game-icon">🔢</span>
+              <span class="game-copy">
+                <b>Быки и коровы</b>
+                <small>Загадай 4 цифры · вычисли секрет соперника</small>
+              </span>
+              <span class="game-action">Создать комнату</span>
+            </button>
           </div>
         </div>
 
         <aside class="side-stack">
           <div class="panel utility-card">
-            <div class="section-head compact-head"><div><div class="eyebrow">твоя сессия</div><h3>Настройся перед матчем</h3></div></div>
+            <div class="section-head compact-head">
+              <div>
+                <div class="eyebrow">твоя сессия</div>
+                <h3>Настройся перед матчем</h3>
+              </div>
+            </div>
+
             <label class="field-label" for="nameInput">Твой ник</label>
-            <div class="name-row"><input id="nameInput" maxlength="20" autocomplete="nickname" placeholder="Например, Bookds" /><button id="randomNameBtn" class="ghost-btn icon-btn" type="button" title="Случайный ник">↻</button></div>
+            <div class="name-row">
+              <input id="nameInput" maxlength="20" autocomplete="nickname" placeholder="Например, Bookds" />
+              <button id="randomNameBtn" class="ghost-btn icon-btn" type="button" title="Случайный ник">↻</button>
+            </div>
+
             <div class="mini-feature-list">
-              <div class="mini-feature"><strong>Приватные комнаты</strong><small>Доступ только по ссылке или коду.</small></div>
-              <div class="mini-feature"><strong>Без регистрации</strong><small>Никаких аккаунтов, почт и капч.</small></div>
-              <div class="mini-feature"><strong>Переподключение</strong><small>Обновил страницу — вернулся в матч.</small></div>
+              <div class="mini-feature">
+                <strong>Приватные комнаты</strong>
+                <small>Доступ только по ссылке или коду.</small>
+              </div>
+              <div class="mini-feature">
+                <strong>Без регистрации</strong>
+                <small>Никаких аккаунтов, почт и капч.</small>
+              </div>
+              <div class="mini-feature">
+                <strong>Переподключение</strong>
+                <small>Обновил страницу — вернулся в матч.</small>
+              </div>
             </div>
           </div>
+
           <div class="panel utility-card">
-            <div class="section-head compact-head"><div><div class="eyebrow">быстрый вход</div><h3>Уже есть комната?</h3></div><p>Введи шестизначный код и подключайся.</p></div>
-            <form id="joinForm" class="join-form"><input id="roomCodeInput" maxlength="6" placeholder="A7K9P2" autocomplete="off" /><button class="primary-btn wide-btn" type="submit">Войти в комнату</button></form>
+            <div class="section-head compact-head">
+              <div>
+                <div class="eyebrow">быстрый вход</div>
+                <h3>Уже есть комната?</h3>
+              </div>
+              <p>Введи шестизначный код и подключайся.</p>
+            </div>
+
+            <form id="joinForm" class="join-form">
+              <input id="roomCodeInput" maxlength="6" placeholder="A7K9P2" autocomplete="off" />
+              <button class="primary-btn wide-btn" type="submit">Войти в комнату</button>
+            </form>
           </div>
         </aside>
       </section>
@@ -99,30 +204,105 @@
       <div class="room-layout">
         <aside class="room-sidebar">
           <div class="panel room-sidebar-main">
-            <div class="room-sidebar-top"><button id="backBtn" class="ghost-btn icon-btn back-btn" type="button" aria-label="Назад">←</button><div><div class="eyebrow" id="gameName">комната</div><h2 id="roomTitle">Комната</h2></div></div>
-            <div class="room-code-block"><span>Код комнаты</span><strong id="roomCodeBadge">------</strong></div>
+            <div class="room-sidebar-top">
+              <button id="backBtn" class="ghost-btn icon-btn back-btn" type="button" aria-label="Назад">←</button>
+              <div>
+                <div class="eyebrow" id="gameName">комната</div>
+                <h2 id="roomTitle">Комната</h2>
+              </div>
+            </div>
+
+            <div class="room-code-block">
+              <span>Код комнаты</span>
+              <strong id="roomCodeBadge">------</strong>
+            </div>
+
             <button id="copyBtn" class="primary-btn wide-btn" type="button">Копировать ссылку</button>
+
             <div class="meta-grid">
-              <div class="meta-box"><small>Статус</small><b id="roomStatusHint">Подключение…</b></div>
-              <div class="meta-box"><small>Раунд</small><b id="roundLabel">—</b></div>
-              <div class="meta-box"><small>Игроков</small><b id="playersCount">0/2</b></div>
-              <div class="meta-box"><small>Тип матча</small><b id="gameShortName">—</b></div>
+              <div class="meta-box">
+                <small>Статус</small>
+                <b id="roomStatusHint">Подключение…</b>
+              </div>
+              <div class="meta-box">
+                <small>Раунд</small>
+                <b id="roundLabel">—</b>
+              </div>
+              <div class="meta-box">
+                <small>Игроков</small>
+                <b id="playersCount">0/2</b>
+              </div>
+              <div class="meta-box">
+                <small>Тип матча</small>
+                <b id="gameShortName">—</b>
+              </div>
             </div>
           </div>
+
           <div class="panel share-card">
-            <div class="section-head compact-head"><div><div class="eyebrow">поделиться</div><h3>Ссылка-приглашение</h3></div></div>
-            <div class="invite-box"><code id="inviteUrl"></code><button id="copyInlineBtn" type="button">Копировать</button></div>
+            <div class="section-head compact-head">
+              <div>
+                <div class="eyebrow">поделиться</div>
+                <h3>Ссылка-приглашение</h3>
+              </div>
+            </div>
+
+            <div class="invite-box">
+              <code id="inviteUrl"></code>
+              <button id="copyInlineBtn" type="button">Копировать</button>
+            </div>
+
             <p class="share-note">Скинь другу ссылку или код комнаты. Когда второй игрок зайдёт — матч начнётся автоматически.</p>
           </div>
         </aside>
 
         <div class="room-main">
-          <div id="joinRoomPanel" class="panel room-state-panel hidden"><div class="state-icon">🎮</div><h3>Войти в комнату</h3><p>Эта ссылка ведёт в приватный матч. Введи ник — и залетай в игру.</p><form id="joinRoomForm" class="room-join-form"><input id="joinNameInput" maxlength="20" placeholder="Твой ник" autocomplete="nickname" /><button class="primary-btn wide-btn" type="submit">Подключиться</button></form></div>
-          <div id="waitingPanel" class="panel room-state-panel hidden"><div class="loader"></div><h3>Ожидаем соперника</h3><p>Комната уже создана. Отправь приглашение другу и жди подключения.</p></div>
+          <div id="joinRoomPanel" class="panel room-state-panel hidden">
+            <div class="state-icon">🎮</div>
+            <h3>Войти в комнату</h3>
+            <p>Эта ссылка ведёт в приватный матч. Введи ник — и залетай в игру.</p>
+            <form id="joinRoomForm" class="room-join-form">
+              <input id="joinNameInput" maxlength="20" placeholder="Твой ник" autocomplete="nickname" />
+              <button class="primary-btn wide-btn" type="submit">Подключиться</button>
+            </form>
+          </div>
+
+          <div id="waitingPanel" class="panel room-state-panel hidden">
+            <div class="loader"></div>
+            <h3>Ожидаем соперника</h3>
+            <p>Комната уже создана. Отправь приглашение другу и жди подключения.</p>
+          </div>
+
           <div id="gamePanel" class="hidden">
-            <div class="versus-card"><div class="player" id="player0"></div><div class="versus-center">VS</div><div class="player" id="player1"></div></div>
-            <div class="action-strip"><div id="statusBar" class="status-card">Загрузка игры...</div><button id="restartBtn" class="ghost-btn restart-btn hidden" type="button">Новый раунд</button></div>
-            <div class="panel game-stage-panel"><div id="gameRoot"></div></div>
+            <div class="game-shell">
+              <div class="versus-card">
+                <div class="player" id="player0"></div>
+                <div class="versus-center">VS</div>
+                <div class="player" id="player1"></div>
+              </div>
+
+              <div id="resultBanner" class="result-banner hidden" aria-live="polite">
+                <div class="result-banner-glow"></div>
+                <div class="result-banner-icon" id="resultIcon">★</div>
+                <div class="result-banner-copy">
+                  <div class="result-banner-label" id="resultLabel">Результат матча</div>
+                  <h3 id="resultTitle">Победа</h3>
+                  <p id="resultSubtitle">Матч завершён.</p>
+                </div>
+                <div class="result-banner-actions">
+                  <button id="resultRestartBtn" class="primary-btn" type="button">Новый раунд</button>
+                </div>
+              </div>
+
+              <div class="action-strip">
+                <div id="statusBar" class="status-card">Загрузка игры...</div>
+                <button id="restartBtn" class="ghost-btn restart-btn hidden" type="button">Новый раунд</button>
+              </div>
+
+              <div class="panel game-stage-panel">
+                <div id="gameRoot"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -130,6 +310,7 @@
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
   <script src="/socket.io/socket.io.js"></script>
   <script src="/app.js"></script>
 </body>
