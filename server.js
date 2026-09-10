@@ -16,6 +16,8 @@ const GAME_NAMES = {
   connect4: "Четыре в ряд",
   rps: "Камень, ножницы, бумага",
   battleship: "Морской бой",
+  dotsboxes: "Точки и квадраты",
+  bullscows: "Быки и коровы",
 };
 
 function makeRoomId() {
@@ -49,6 +51,28 @@ function createGameState(game) {
   if (game === "battleship") {
     return {
       boards: [createBattleBoard(), createBattleBoard()],
+      turn: 0,
+      winner: null,
+      round: 1
+    };
+  }
+  if (game === "dotsboxes") {
+    return {
+      hEdges: Array.from({ length: 4 }, () => Array(3).fill(null)),
+      vEdges: Array.from({ length: 3 }, () => Array(4).fill(null)),
+      boxes: Array.from({ length: 3 }, () => Array(3).fill(null)),
+      score: [0, 0],
+      turn: 0,
+      winner: null,
+      draw: false,
+      round: 1
+    };
+  }
+  if (game === "bullscows") {
+    return {
+      secrets: [null, null],
+      ready: [false, false],
+      guesses: [],
       turn: 0,
       winner: null,
       round: 1
@@ -186,6 +210,17 @@ function buildClientState(room, me) {
       opponentChosen: !!room.state.choices[me === 0 ? 1 : 0],
       reveal: room.state.choices[0] && room.state.choices[1] ? room.state.choices : null,
     };
+  } else if (room.game === "bullscows") {
+    common.gameState = {
+      ready: room.state.ready,
+      mySecret: room.state.secrets[me],
+      opponentReady: room.state.ready[me === 0 ? 1 : 0],
+      guesses: room.state.guesses,
+      turn: room.state.turn,
+      winner: room.state.winner,
+      round: room.state.round,
+      revealSecrets: room.state.winner !== null ? room.state.secrets : null,
+    };
   } else {
     common.gameState = room.state;
   }
@@ -234,6 +269,53 @@ function rpsWinner(a, b) {
     (a === "paper" && b === "rock")
   ) return 0;
   return 1;
+}
+
+function isValidSecret(value) {
+  const secret = String(value || "");
+  return /^\d{4}$/.test(secret) && new Set(secret).size === 4;
+}
+
+function bullsAndCows(secret, guess) {
+  let bulls = 0;
+  let cows = 0;
+  for (let i = 0; i < 4; i++) {
+    if (guess[i] === secret[i]) bulls++;
+    else if (secret.includes(guess[i])) cows++;
+  }
+  return { bulls, cows };
+}
+
+function dotsBoxComplete(state, r, c) {
+  return Boolean(
+    state.hEdges[r][c] !== null &&
+    state.hEdges[r + 1][c] !== null &&
+    state.vEdges[r][c] !== null &&
+    state.vEdges[r][c + 1] !== null
+  );
+}
+
+function claimDotsBoxes(state, orientation, row, col, player) {
+  const candidates = [];
+  if (orientation === "h") {
+    if (row > 0) candidates.push([row - 1, col]);
+    if (row < 3) candidates.push([row, col]);
+  } else {
+    if (col > 0) candidates.push([row, col - 1]);
+    if (col < 3) candidates.push([row, col]);
+  }
+
+  let claimed = 0;
+  for (const [r, c] of candidates) {
+    if (r < 0 || r > 2 || c < 0 || c > 2) continue;
+    if (state.boxes[r][c] !== null) continue;
+    if (dotsBoxComplete(state, r, c)) {
+      state.boxes[r][c] = player;
+      state.score[player]++;
+      claimed++;
+    }
+  }
+  return claimed;
 }
 
 function resetGame(room) {
@@ -390,6 +472,59 @@ io.on("connection", (socket) => {
           ship.hits.push([row, col]);
           const allSunk = target.ships.every(s => s.hits.length === s.cells.length);
           if (allSunk) room.state.winner = me;
+        }
+      }
+
+      if (room.game === "dotsboxes") {
+        if (room.state.winner !== null || room.state.draw) throw new Error("Раунд уже завершён");
+        if (room.state.turn !== me) throw new Error("Сейчас ход соперника");
+
+        const orientation = String(payload?.orientation || "");
+        const row = Number(payload?.row);
+        const col = Number(payload?.col);
+        if (!["h", "v"].includes(orientation) || !Number.isInteger(row) || !Number.isInteger(col)) {
+          throw new Error("Недопустимый ход");
+        }
+
+        const target = orientation === "h" ? room.state.hEdges : room.state.vEdges;
+        const rowLimit = orientation === "h" ? 3 : 2;
+        const colLimit = orientation === "h" ? 2 : 3;
+        if (row < 0 || row > rowLimit || col < 0 || col > colLimit) throw new Error("Недопустимая линия");
+        if (target[row][col] !== null) throw new Error("Эта линия уже занята");
+
+        target[row][col] = me;
+        const claimed = claimDotsBoxes(room.state, orientation, row, col, me);
+        const claimedCount = room.state.score[0] + room.state.score[1];
+        if (claimedCount === 9) {
+          if (room.state.score[0] === room.state.score[1]) room.state.draw = true;
+          else room.state.winner = room.state.score[0] > room.state.score[1] ? 0 : 1;
+        } else if (claimed === 0) {
+          room.state.turn = me === 0 ? 1 : 0;
+        }
+      }
+
+      if (room.game === "bullscows") {
+        if (room.state.winner !== null) throw new Error("Раунд уже завершён");
+        const action = String(payload?.action || "");
+
+        if (action === "setSecret") {
+          const secret = String(payload?.secret || "");
+          if (!isValidSecret(secret)) throw new Error("Нужно 4 разные цифры");
+          if (room.state.ready[me]) throw new Error("Секрет уже сохранён");
+          room.state.secrets[me] = secret;
+          room.state.ready[me] = true;
+        } else if (action === "guess") {
+          if (!room.state.ready[0] || !room.state.ready[1]) throw new Error("Сначала оба игрока должны загадать числа");
+          if (room.state.turn !== me) throw new Error("Сейчас ход соперника");
+          const guess = String(payload?.guess || "");
+          if (!isValidSecret(guess)) throw new Error("Нужно 4 разные цифры");
+          const enemy = me === 0 ? 1 : 0;
+          const result = bullsAndCows(room.state.secrets[enemy], guess);
+          room.state.guesses.push({ by: me, guess, bulls: result.bulls, cows: result.cows });
+          if (result.bulls === 4) room.state.winner = me;
+          else room.state.turn = enemy;
+        } else {
+          throw new Error("Неизвестное действие");
         }
       }
 
